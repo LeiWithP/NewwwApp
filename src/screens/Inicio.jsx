@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     fontSize: 32,
     fontWeight: "500",
-    marginBottom: 30,
+    marginBottom: 40,
   },
 });
 
