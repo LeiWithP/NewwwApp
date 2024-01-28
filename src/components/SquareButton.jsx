@@ -1,9 +1,9 @@
 import React from "react";
 import { TouchableHighlight, Text, StyleSheet } from "react-native";
 
-const SquareButton = ({ text }) => {
+const SquareButton = ({ onPress, text }) => {
   return (
-    <TouchableHighlight style={styles.button}>
+    <TouchableHighlight style={styles.button} onPress={onPress}>
       <Text style={styles.text}>{text}</Text>
     </TouchableHighlight>
   );

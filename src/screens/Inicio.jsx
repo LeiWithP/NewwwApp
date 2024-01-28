@@ -4,13 +4,17 @@ import { View, Text, StyleSheet } from "react-native";
 import BasicInput from "../components/BasicInput";
 import SquareButton from "../components/SquareButton";
 
-const Inicio = () => {
+const Inicio = ({ navigation }) => {
+  const handleButton = () => {
+    navigation.navigate("Listado");
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Inicio de sesión</Text>
       <BasicInput label="Email" placeholder="Ingresa tu email" />
       <BasicInput label="Contraseña" placeholder="Ingresa tu contraseña" />
-      <SquareButton text="Iniciar sesión" />
+      <SquareButton text="Iniciar sesión" onPress={handleButton} />
     </View>
   );
 };
