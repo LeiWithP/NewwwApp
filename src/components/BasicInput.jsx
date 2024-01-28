@@ -5,7 +5,7 @@ const BasicInput = (props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{props.label}</Text>
-      <TextInput style={styles.input} value={props.placeholder} />
+      <TextInput style={styles.input} placeholder={props.placeholder} />
     </View>
   );
 };
