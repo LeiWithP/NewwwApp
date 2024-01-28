@@ -1,11 +1,15 @@
 import React from "react";
-import { TouchableHighlight, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
-const SquareButton = ({ onPress, text }) => {
+const SquareButton = ({ onPress, text, isDisable }) => {
   return (
-    <TouchableHighlight style={styles.button} onPress={onPress}>
+    <TouchableOpacity
+      style={[styles.button, isDisable && styles.disabledButton]}
+      onPress={onPress}
+      disabled={isDisable}
+    >
       <Text style={styles.text}>{text}</Text>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 };
 
@@ -18,6 +22,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     height: 50,
     marginVertical: 10,
+  },
+  disabledButton: {
+    backgroundColor: "#bdc3c7", // Grey color when disabled
   },
   text: {
     color: "white",
