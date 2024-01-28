@@ -4,7 +4,14 @@ import { View, Text, Image, StyleSheet } from "react-native";
 import BasicInput from "../components/BasicInput";
 import SquareButton from "../components/SquareButton";
 
-const Registro = () => {
+const Registro = ({ navigation }) => {
+  const handleCaptura = () => {
+    navigation.navigate("Listado");
+  };
+  const handleGuardar = () => {
+    navigation.navigate("Listado");
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Registro</Text>
@@ -16,12 +23,12 @@ const Registro = () => {
         label="Malestar/Sintomas"
         placeholder="Describe el malestar presentado"
       />
-      <SquareButton text="Capturar Receta" />
+      <SquareButton text="Capturar Receta" onPress={handleCaptura} />
       <Image
         style={styles.image}
         source={{ uri: "https://reactnative.dev/img/tiny_logo.png" }}
       />
-      <SquareButton text="Guardar" />
+      <SquareButton text="Guardar" onPress={handleGuardar} />
     </View>
   );
 };
