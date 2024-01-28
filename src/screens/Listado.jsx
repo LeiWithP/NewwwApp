@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Constants from "expo-constants";
 import { View, Text, FlatList, StyleSheet } from "react-native";
 import { Searchbar, IconButton } from "react-native-paper";
@@ -27,23 +27,38 @@ const initialRegiters = [
 
 const Listado = ({ navigation }) => {
   const [registros, setRegistros] = useState(initialRegiters);
+  const [registrosVisibles, setRegistrosVisibles] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleButton = () => {
     navigation.navigate("Registro");
   };
 
+  useEffect(() => {
+    if (searchQuery) {
+      const upperCaseQuery = searchQuery.toUpperCase();
+      const match = registros.filter(
+        (registro) =>
+          registro.paciente.toUpperCase().includes(upperCaseQuery) ||
+          registro.malestar.toUpperCase().includes(upperCaseQuery) ||
+          registro.doctor.toUpperCase().includes(upperCaseQuery)
+      );
+      setRegistrosVisibles(match);
+    } else {
+      setRegistrosVisibles(registros);
+    }
+  }, [searchQuery]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Listado</Text>
       <Searchbar
         placeholder="Buscar"
-        onChageText={setSearchQuery}
-        value={searchQuery}
+        onChangeText={(query) => setSearchQuery(query)}
         style={styles.searchbar}
       />
       <FlatList
-        data={registros}
+        data={registrosVisibles}
         style={styles.list}
         contentContainerStyle={styles.contentList}
         keyExtractor={(item, index) => index.toString()}
