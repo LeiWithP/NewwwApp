@@ -4,13 +4,20 @@ import { View, Text, StyleSheet } from "react-native";
 import BasicInput from "../components/BasicInput";
 import SquareButton from "../components/SquareButton";
 
+const accessKey = {
+  email: "jhon@mail.com",
+  password: "77@1$",
+};
+
 const Inicio = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validForm, setValidForm] = useState(false);
 
   const handleButton = () => {
-    navigation.navigate("Listado");
+    if (email === accessKey.email && password === accessKey.password) {
+      navigation.navigate("Listado");
+    }
   };
 
   useEffect(() => {
@@ -29,6 +36,7 @@ const Inicio = ({ navigation }) => {
         placeholder="Ingresa tu email"
         onChangeText={setEmail}
         regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
+        errorMessage="Ingrese un email válido"
       />
       <BasicInput
         label="Contraseña"

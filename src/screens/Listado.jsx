@@ -6,26 +6,32 @@ import Card from "../components/Card";
 
 const initialRegiters = [
   {
+    fecha: "10/10/2023",
     paciente: "Pedro",
     malestar: "Lorem ipsum dolor",
     doctor: "Juan",
     telefono: "(123) 4560 789",
+    imagen: "",
   },
   {
+    fecha: "10/10/2023",
     paciente: "Mario",
     malestar: "Lorem ipsum dolor",
     doctor: "Juan",
     telefono: "(123) 4560 789",
+    imagen: "",
   },
   {
+    fecha: "10/10/2023",
     paciente: "Karla",
-    malestar: "Lorem ipsum dolor",
     doctor: "Juan",
     telefono: "(123) 4560 789",
+    malestar: "Lorem ipsum dolor",
+    imagen: "",
   },
 ];
 
-const Listado = ({ navigation }) => {
+const Listado = ({ navigation, route }) => {
   const [registros, setRegistros] = useState(initialRegiters);
   const [registrosVisibles, setRegistrosVisibles] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -33,6 +39,12 @@ const Listado = ({ navigation }) => {
   const handleButton = () => {
     navigation.navigate("Registro");
   };
+
+  useEffect(() => {
+    if (route.params.newData) {
+      setRegistros([...registros, route.params.newData]);
+    }
+  }, [route.params.newData]);
 
   useEffect(() => {
     if (searchQuery) {
@@ -102,8 +114,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   contentList: {
-    flex: 1,
-    alignItems: "stretch",
+    flexGrow: 1,
   },
   plusButton: {
     position: "absolute",

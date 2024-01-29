@@ -6,16 +6,20 @@ const BasicInput = ({
   placeholder,
   maxLegth,
   isPassword,
+  textKey,
   onChangeText,
   regex,
-  invalidMessage,
+  errorMessage,
 }) => {
   const [isValid, setIsValid] = useState(true);
   const validateText = (text) => {
-    if (checkInput(text)) {
-      onChangeText(text);
+    if (!checkInput(text)) {
+      text = "";
+    }
+    if (textKey) {
+      onChangeText(textKey, text);
     } else {
-      onChangeText("");
+      onChangeText(text);
     }
   };
   const checkInput = (text) => {
@@ -35,11 +39,13 @@ const BasicInput = ({
         placeholder={placeholder}
         maxLength={maxLegth ? maxLegth : 100}
         secureTextEntry={isPassword ? isPassword : false}
-        onChangeText={(text) => validateText(text)}
+        onChangeText={(text) =>
+          onChangeText ? validateText(text) : checkInput(text)
+        }
       />
       {isValid ? undefined : (
         <Text style={styles.error}>
-          {invalidMessage ? invalidMessage : `Valor Invalido`}
+          {errorMessage ? errorMessage : `Ingrese un valor válido`}
         </Text>
       )}
     </View>
