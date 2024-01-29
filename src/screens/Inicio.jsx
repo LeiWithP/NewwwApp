@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Constants from "expo-constants";
 import { View, Text, StyleSheet } from "react-native";
+import { ActivityIndicator } from "react-native-paper";
 import BasicInput from "../components/BasicInput";
 import SquareButton from "../components/SquareButton";
 
@@ -12,12 +13,20 @@ const accessKey = {
 const Inicio = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [validForm, setValidForm] = useState(false);
 
-  const handleButton = () => {
-    if (email === accessKey.email && password === accessKey.password) {
-      navigation.navigate("Listado");
+  const handleButton = async () => {
+    setIsLoading(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      if (email === accessKey.email && password === accessKey.password) {
+        navigation.navigate("Listado", { email: email });
+      }
+    } catch (error) {
+      console.error("Login Error:", error);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -44,11 +53,15 @@ const Inicio = ({ navigation }) => {
         isPassword={true}
         onChangeText={setPassword}
       />
-      <SquareButton
-        text="Iniciar sesión"
-        onPress={handleButton}
-        isDisable={!validForm}
-      />
+      {isLoading ? (
+        <ActivityIndicator animating={true} />
+      ) : (
+        <SquareButton
+          text="Iniciar sesión"
+          onPress={async () => handleButton()}
+          isDisable={!validForm}
+        />
+      )}
     </View>
   );
 };

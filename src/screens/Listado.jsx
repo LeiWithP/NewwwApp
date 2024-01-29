@@ -41,10 +41,11 @@ const Listado = ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    if (route.params.newData) {
+    if (route?.params.newData) {
+      setRegistrosVisibles([...registros, route.params.newData]);
       setRegistros([...registros, route.params.newData]);
     }
-  }, [route.params.newData]);
+  }, [route?.params]);
 
   useEffect(() => {
     if (searchQuery) {
